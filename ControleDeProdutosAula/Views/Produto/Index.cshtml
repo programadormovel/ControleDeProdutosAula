@@ -1,4 +1,5 @@
-﻿@{
+﻿@model List<ProdutoModel>
+@{
     ViewData["Title"] = "Sistema de Cadastro de Produtos";
 }
 
@@ -23,54 +24,28 @@
             </tr>
         </thead>
         <tbody>
-            <tr>
-                <th scope="row">1</th>
-                <td>111222333</td>
-                <td>Bolacha</td>
-                <td>22/03/2022</td>
-                <td>12</td>
-                <td>4,56</td>
-                <td>Ativo</td>
-                <td>
-                    <div class="btn-group" role="group">
-                        <a role="button" class="btn btn-primary" aspcontroller="Produto" asp-action="Editar">Editar</a>
-                        <a role="button" class="btn btn-warning">Desativar</a>
-                        <a role="button" class="btn btn-danger" aspcontroller="Produto" asp-action="ApagarConfirmacao">Apagar</a>
-                    </div>
-                </td>
-            </tr>
-            <tr>
-                <th scope="row">2</th>
-                <td>111222333</td>
-                <td>Biscoito</td>
-                <td>22/03/2022</td>
-                <td>21</td>
-                <td>3,56</td>
-                <td>Ativo</td>
-                <td>
-                    <div class="btn-group" role="group">
-                        <a role="button" class="btn btn-primary" aspcontroller="Produto" asp-action="Editar">Editar</a>
-                        <a role="button" class="btn btn-warning">Desativar</a>
-                        <a role="button" class="btn btn-danger" aspcontroller="Produto" asp-action="ApagarConfirmacao">Apagar</a>
-                    </div>
-                </td>
-            </tr>
-            <tr>
-                <th scope="row">3</th>
-                <td>111222333</td>
-                <td>Torta</td>
-                <td>24/03/2022</td>
-                <td>34</td>
-                <td>6,99</td>
-                <td>Ativo</td>
-                <td>
-                    <div class="btn-group" role="group">
-                        <a role="button" class="btn btn-primary" aspcontroller="Produto" asp-action="Editar">Editar</a>
-                        <a role="button" class="btn btn-warning">Desativar</a>
-                        <a role="button" class="btn btn-danger" aspcontroller="Produto" asp-action="ApagarConfirmacao">Apagar</a>
-                    </div>
-                </td>
-            </tr>
+            @if (Model != null && Model.Any())
+            {
+                foreach(ProdutoModel produto in Model)
+                {
+                    <tr>
+                        <th scope="row">@produto.Id</th>
+                        <td>@produto.CodigoDeBarras</td>
+                        <td>@produto.Descricao</td>
+                        <td>@produto.DataDeValidade</td>
+                        <td>@produto.Quantidade</td>
+                        <td>@produto.Valor</td>
+                        <td>@produto.Ativo</td>
+                        <td>
+                            <div class="btn-group" role="group">
+                                <a role="button" class="btn btn-primary" asp-controller="Produto" asp-action="Editar">Editar</a>
+                                <a role="button" class="btn btn-warning mx-2">Desativar</a>
+                                <a role="button" class="btn btn-danger" asp-controller="Produto" asp-action="ApagarConfirmacao">Apagar</a>
+                            </div>
+                        </td>
+                    </tr>
+                }
+            }
         </tbody>
     </table>
 </div>
