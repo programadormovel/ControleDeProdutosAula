@@ -1,4 +1,5 @@
-﻿@model List<ProdutoModel>
+﻿@using System.Globalization;
+@model List<ProdutoModel>
 @{
     ViewData["Title"] = "Sistema de Cadastro de Produtos";
 }
@@ -32,9 +33,9 @@
                         <th scope="row">@produto.Id</th>
                         <td>@produto.CodigoDeBarras</td>
                         <td>@produto.Descricao</td>
-                        <td>@produto.DataDeValidade</td>
+                        <td>@produto.DataDeValidade.ToString("dd/MM/yyyy")</td>
                         <td>@produto.Quantidade</td>
-                        <td>@produto.Valor</td>
+                        <td>R$ @produto.Valor.ToString("F2",new CultureInfo("pt-BR"))</td>
                         <td>@produto.Ativo</td>
                         <td>
                             <div class="btn-group" role="group">

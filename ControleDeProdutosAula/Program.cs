@@ -13,6 +13,7 @@ builder.Services.AddDbContext<BancoContext>(
     );
 
 builder.Services.AddScoped<IProdutoRepositorio, ProdutoRepositorio>();
+builder.Services.AddScoped<IClienteRepositorio, ClienteRepositorio>();
 
 var app = builder.Build();
 

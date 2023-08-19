@@ -13,21 +13,29 @@ namespace ControleDeProdutosAula.Controllers
             _produtoRepositorio = produtoRepositorio;
         }   
 
-        public IActionResult Index() {
-            List<ProdutoModel> produtos = _produtoRepositorio.BuscarTodos();
-            return View(produtos); 
+        public async Task<IActionResult> Index() {
+            List<ProdutoModel> produtos = await _produtoRepositorio.BuscarTodos();
+            return await Task.FromResult(View(produtos)); 
         } 
-        public IActionResult Criar() { return View();}
-        public IActionResult Editar() { return View();}
-        public IActionResult ApagarConfirmacao() { return View(); }
+
+        public async Task<IActionResult> Criar() { 
+            return await Task.FromResult(View());
+        }
+        public async Task<IActionResult> Editar() {
+            return await Task.FromResult(View());
+        }
+
+        public async Task<IActionResult> ApagarConfirmacao() { 
+            return await Task.FromResult(View()); 
+        }
 
         [HttpPost]
-        public IActionResult Criar(ProdutoModel produto) {
+        public async Task<IActionResult> Criar(ProdutoModel produto)
+        {
             ProdutoModel model = produto;
             model.DataDeRegistro = DateTime.Now;
-            _produtoRepositorio.Adicionar(model);
-
-            return RedirectToAction("Index");
+            await _produtoRepositorio.Adicionar(model);
+            return await Task.FromResult(RedirectToAction("Index"));
         }
     }
 }

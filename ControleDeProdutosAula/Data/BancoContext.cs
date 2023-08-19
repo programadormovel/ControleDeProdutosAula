@@ -14,7 +14,8 @@ namespace ControleDeProdutosAula.Data
         
         }
         
-        public DbSet<ProdutoModel> Produtos { get; set; }  
-        
+        public DbSet<ProdutoModel> Produto { get; set; }
+        public DbSet<ClienteModel> Cliente { get; set; }
+
     }
 }

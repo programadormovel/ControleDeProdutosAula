@@ -1,5 +1,6 @@
 ﻿using ControleDeProdutosAula.Data;
 using ControleDeProdutosAula.Models;
+using Microsoft.EntityFrameworkCore;
 
 namespace ControleDeProdutosAula.Repositorio
 {
@@ -12,17 +13,16 @@ namespace ControleDeProdutosAula.Repositorio
             _bancoContext = bancoContext;
         }
 
-        public ProdutoModel Adicionar(ProdutoModel produto)
+        public async Task<ProdutoModel> Adicionar(ProdutoModel produto)
         {
-            _bancoContext.Produtos.Add(produto);
-            _bancoContext.SaveChanges();
-
+            await _bancoContext.Produto.AddAsync(produto);
+            await _bancoContext.SaveChangesAsync();
             return produto;
         }
 
-        public List<ProdutoModel> BuscarTodos()
+        public async Task<List<ProdutoModel>> BuscarTodos()
         {
-            return _bancoContext.Produtos.ToList();
+            return await _bancoContext.Produto.ToListAsync();
         }
     }
 }
