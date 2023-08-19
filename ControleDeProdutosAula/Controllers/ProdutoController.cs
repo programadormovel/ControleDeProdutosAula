@@ -21,12 +21,24 @@ namespace ControleDeProdutosAula.Controllers
         public async Task<IActionResult> Criar() { 
             return await Task.FromResult(View());
         }
-        public async Task<IActionResult> Editar() {
-            return await Task.FromResult(View());
+
+        public async Task<IActionResult> Editar(long id) {
+
+            ProdutoModel produto = await _produtoRepositorio.ListarPorId(id);
+
+            return await Task.FromResult(View(produto));
         }
 
-        public async Task<IActionResult> ApagarConfirmacao() { 
-            return await Task.FromResult(View()); 
+        public async Task<IActionResult> ApagarConfirmacao(long id) {
+            ProdutoModel produto = await _produtoRepositorio.ListarPorId(id);
+
+            return await Task.FromResult(View(produto)); 
+        }
+
+        public async Task<IActionResult> Apagar(long id)
+        {
+            await _produtoRepositorio.Apagar(id);
+            return await Task.FromResult(RedirectToAction("Index"));
         }
 
         [HttpPost]
@@ -37,5 +49,14 @@ namespace ControleDeProdutosAula.Controllers
             await _produtoRepositorio.Adicionar(model);
             return await Task.FromResult(RedirectToAction("Index"));
         }
-    }
+
+		[HttpPost]
+		public async Task<IActionResult> Alterar(ProdutoModel produto)
+		{
+			await _produtoRepositorio.Atualizar(produto);
+			return await Task.FromResult(RedirectToAction("Index"));
+		}
+
+
+	}
 }
